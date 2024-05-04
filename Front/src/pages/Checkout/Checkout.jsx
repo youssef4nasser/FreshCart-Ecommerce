@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Container,Form } from "react-bootstrap"
+import { Breadcrumb, Button, Card, Col, Container,Form, ListGroup, Row } from "react-bootstrap"
 
 function Checkout() {
   return <>
@@ -9,8 +9,8 @@ function Checkout() {
                 <Breadcrumb.Item active>Checkout</Breadcrumb.Item>
             </Breadcrumb>
             <h2 className="mb-5 fw-bold text-center">Checkout</h2>
-            <div className="row justify-content-around align-items-start">
-                <div className="col-12 col-md-6 mb-4 mb-lg-0">
+            <Row className="mt-4">
+                <Col sm={8} className="mb-4 mb-lg-0">
                     <Form>
                         <div className="p-3 p-lg-4 bg-white rounded shadow-sm border-2 mb-4 border">
                             <h5 className="fw-bold mb-4">Contact Infomation</h5>
@@ -31,7 +31,7 @@ function Checkout() {
                         </div>
                         <div className="p-3 p-lg-4 bg-white rounded shadow-sm border-2 mb-4 border">
                             <h5 className="fw-bold mb-4">Shipping Address</h5>
-                            <Form.Group className="mb-3" controlId="formGridAddress1">
+                            <Form.Group className="mb-3" controlId="formGridAddress">
                                 <Form.Label>Address</Form.Label>
                                 <Form.Control placeholder="1234 Main St" />
                             </Form.Group>
@@ -41,7 +41,7 @@ function Checkout() {
                                 <Form.Control placeholder="City" />
                             </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formGridCity">
+                            <Form.Group className="mb-3" controlId="formGridState">
                             <Form.Label>State</Form.Label>
                                 <Form.Control placeholder="State" />
                             </Form.Group>
@@ -67,8 +67,54 @@ function Checkout() {
                             </Button>
                         </div>
                     </Form>
-                </div>
-            </div>
+                </Col>
+                {/* Order Summary */}
+                <Col sm={4}>
+                    <Card bg="light" className="mb-4 shadow-sm">
+                        <Card.Body>
+                            <Card.Title>Order summary</Card.Title>
+                            <hr/>
+                            <Row className="gy-3">
+                                <Col md={12} className="py-1">
+                                    <div className=" d-flex justify-content-between align-items-center">
+                                        <h5 className="font-weight-normal">Product</h5>
+                                        <h5 className="font-weight-normal">$Total</h5>
+                                    </div>
+                                </Col>
+                                <Col md={12} className="py-1">
+                                    <div className=" d-flex justify-content-between align-items-center">
+                                        <h6 className="text-muted font-weight-normal">Apple Watch <span className="fw-bold text-dark text-opacity-50">x1</span></h6>
+                                        <h6>$75</h6>
+                                    </div>
+                                </Col>
+                                <Col md={12} className="py-1">
+                                    <div className=" d-flex justify-content-between align-items-center">
+                                        <h6 className="text-muted font-weight-normal">Apple Watch <span className="fw-bold text-dark text-opacity-50">x3</span></h6>
+                                        <h6>$75</h6>
+                                    </div>
+                                </Col>
+                                <Col md={12} className="py-1">
+                                    <div className=" d-flex justify-content-between align-items-center">
+                                        <h6 className="text-muted font-weight-normal">Apple Watch <span className="fw-bold text-dark text-opacity-50">x5</span></h6>
+                                        <h6>$75</h6>
+                                    </div>
+                                </Col>
+                                <Col md={12} className="py-1">
+                                    <div className=" d-flex justify-content-between align-items-center">
+                                        <h6 className="text-muted font-weight-normal">Apple Watch <span className="fw-bold text-dark text-opacity-50">x1</span></h6>
+                                        <h6>$75</h6>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                        <ListGroup variant="flush">
+                            <ListGroup.Item className="d-flex justify-content-between"><span>Subtotal:</span> <span>$900.00</span></ListGroup.Item>
+                            <ListGroup.Item className="d-flex justify-content-between"><span>Shipping:</span> <span>$80.00</span></ListGroup.Item>
+                            <ListGroup.Item className="d-flex justify-content-between"><span>Total:</span> <span>$980.00</span></ListGroup.Item>
+                        </ListGroup>
+                    </Card>
+                </Col>
+            </Row>
         </Container>
     </section>
   </>

@@ -17,7 +17,7 @@ function Cart() {
             <Breadcrumb.Item active>Cart</Breadcrumb.Item>
         </Breadcrumb>
         <h2 className="mb-5 fw-bold text-center">Cart</h2>
-        <Row className="justify-content-center mt-4">
+        <Row className="mt-4">
             <Col xs={8}>
                 <Table   hover >
                     <thead>
