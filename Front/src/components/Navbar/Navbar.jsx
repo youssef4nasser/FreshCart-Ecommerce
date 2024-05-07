@@ -8,6 +8,7 @@ import { faHeart, faUser, faCartShopping, faEnvelope, faPhone, faRightToBracket,
 import userProfile from "../../assets/1.png"
 import { useState } from 'react';
 import style from './Navbar.module.css'
+import { Link } from 'react-router-dom';
 
 function NavSearsh() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -41,7 +42,7 @@ function NavSearsh() {
     </Navbar>
     <Navbar expand="lg" className='border-bottom'>
       <Container>
-        <Navbar.Brand href="/"><Image src={logo} alt="logo freshCart" /></Navbar.Brand>
+        <Navbar.Brand><Link to={'/'}><Image src={logo} alt="logo freshCart" /></Link></Navbar.Brand>
         <Navbar.Toggle aria-controls={'offcanvasNavbar-expand-lg'} onClick={handleOffcanvasToggle} />
         <Navbar.Offcanvas
          show={showOffcanvas}
@@ -52,7 +53,7 @@ function NavSearsh() {
          >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id={"offcanvasNavbarLabel-expand-lg"}>
-              FreshCart
+              <Navbar.Brand><Image src={logo} alt="logo freshCart" /></Navbar.Brand>
             </Offcanvas.Title>
           </Offcanvas.Header>
           {showOffcanvas ?
@@ -66,59 +67,61 @@ function NavSearsh() {
               />
               <Button variant="outline-success">Search</Button>
             </Form>
-            <Nav className=''>
+            <Nav>
               <Stack direction='vertical' gap={3}>
                 <Nav.Item className="mt-4">
-                <div className="d-flex align-items-center justify-content-between">
-                  <img src={userProfile} className='rounded-circle' width={58} height={58} />
-                  <h1 className="my-2 h5 fw-bold">Youssef AboZaid</h1>
+                  <div className="d-flex align-items-center justify-content-between pb-2">
+                    <img src={userProfile} className='rounded-circle' width={58} height={58} />
+                    <h1 className="my-2 h5 fw-bold">Youssef AboZaid</h1>
                   </div>
                 </Nav.Item>
 
-                <Nav.Item className='main-hover'>
-                  <Nav.Link className='d-flex justify-content-between'>
-                      <span>My Account</span>
-                      <FontAwesomeIcon icon={faUser} size='lg'/>
-                  </Nav.Link>
+                <Nav.Item className='main-hover p-2'>
+                  <Link to={'account'} className='d-flex justify-content-between'>
+                    <span>My Account</span>
+                    <FontAwesomeIcon icon={faUser} size='lg'/>
+                  </Link>
                 </Nav.Item>
 
-                <Nav.Item className='main-hover'>
-                  <Nav.Link className='d-flex justify-content-between'>
+                <Nav.Item className='main-hover p-2'>
+                    <Link to={'order'} className='d-flex justify-content-between'>
                         <span>My Order</span>
                         <FontAwesomeIcon icon={faListCheck}  size='lg'/>
-                    </Nav.Link>
+                    </Link>
                 </Nav.Item>
 
-                <Nav.Item className='main-hover'>
-                  <Nav.Link className='position-relative  d-flex justify-content-between'>
+                <Nav.Item className='main-hover p-2'>
+                <Link to={'cart'} className='d-flex justify-content-between'>
                     <span>Cart</span>
-                    <div>
+                    <div className='position-relative'>
                       <Badge bg='success' className="position-absolute top-0 end-75 translate-middle badge rounded-pill">3</Badge>
                       <FontAwesomeIcon icon={faCartShopping} size='lg' />
                     </div>
-                  </Nav.Link>
+                  </Link>
                 </Nav.Item>
 
-                <Nav.Item className='main-hover'>
-                <Nav.Link className='d-flex justify-content-between'>
-                  <span>Wishlist</span>
-                  <div className='position-relative  d-flex justify-content-between'>
-                    <Badge bg='success' className="position-absolute top-0 end-75 translate-middle badge rounded-pill">3</Badge>
-                    <FontAwesomeIcon icon={faHeart} size='lg' />
-                  </div>
-                </Nav.Link>
+                <Nav.Item className='main-hover p-2'>
+                  <Link to={'wishlist'} className='d-flex justify-content-between'>
+                    <span>Wishlist</span>
+                    <div className='position-relative'>
+                      <Badge bg='success' className="position-absolute top-0 end-75 translate-middle badge rounded-pill">3</Badge>
+                      <FontAwesomeIcon icon={faHeart} size='lg' />
+                    </div>
+                  </Link>
                 </Nav.Item>
 
-                <Nav.Item className='main-hover'>
-                  <Nav.Link className='d-flex justify-content-between'>
+                <Nav.Item className='main-hover p-2'>
+                  <Link to={'login'} className='d-flex justify-content-between'>
                     <span>Log out</span>
                     <FontAwesomeIcon icon={faRightToBracket} size='lg'/>
-                  </Nav.Link>
+                  </Link>
                 </Nav.Item>
 
-                {/* <Nav.Item className='main-hover'>
-                  <Nav.Link>Register</Nav.Link>
-                  <Nav.Link>Login</Nav.Link>
+                {/* <Nav.Item className='main-hover p-2'>
+                  <Link to={'/login'}>Login</Link>
+                </Nav.Item>
+                <Nav.Item className='main-hover p-2'>
+                  <Link to={'/register'}>Register</Link>
                 </Nav.Item> */}
               </Stack>
             </Nav>
@@ -135,40 +138,45 @@ function NavSearsh() {
               <Button variant="outline-success">Search</Button>
             </Form>
             <Nav className='align-items-center'>
-              <div className='position-relative mx-3 cursor-pointer'>
-                <FontAwesomeIcon className="" icon={faHeart} size='lg' />
-                <span className="position-absolute top-0 end-75 translate-middle badge rounded-pill bg-success">31</span>
-              </div>
-              <div className='position-relative mx-3 cursor-pointer'>
-                <FontAwesomeIcon className="" icon={faCartShopping} size='lg' />
-                <span className="position-absolute top-0 end-75 translate-middle badge rounded-pill bg-success">9</span>
-              </div>
-              <div className='cursor-pointer'>
-                <Dropdown align={'end'} >
-                  <Dropdown.Toggle variant="white" id="dropdown-basic">
-                    <FontAwesomeIcon className="px-2" icon={faUser} size='lg' />
-                  </Dropdown.Toggle>
+              <Link to={"/wishlist"} className='position-relative  text-dark mx-3 cursor-pointer'>
+                <FontAwesomeIcon icon={faHeart} size='lg' />
+                <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">31</span>
+              </Link> 
+              
+              <Link to={'/cart'} className='position-relative text-dark mx-3 cursor-pointer'>
+                <FontAwesomeIcon icon={faCartShopping} size='lg' />
+                <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">9</span>
+              </Link>
+              
+              <Dropdown align={'end'} >
+                <Dropdown.Toggle variant="white" id="dropdown-basic">
+                  <FontAwesomeIcon className="px-2" icon={faUser} size='lg' />
+                </Dropdown.Toggle>
 
-                  {/* <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Register</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Login</Dropdown.Item>
-                  </Dropdown.Menu> */}
+                {/* <Dropdown.Menu>
+                  <Dropdown.Item>
+                    <Link to={'/register'}>Register</Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <Link to={'/login'}>Login</Link>
+                  </Dropdown.Item>
+                </Dropdown.Menu> */}
 
-                  <Dropdown.Menu style={{width:200}}>
-                    <div className=" text-center">
-                      <img src={userProfile} className='rounded-circle' width={65} height={65} />
-                      <div>
-                        <h6 className="my-2 fw-bold">Youssef AboZaid</h6>
-                      </div>
+                <Dropdown.Menu style={{width:200}}>
+                  <div className="text-center">
+                    <img src={userProfile} className='rounded-circle' width={65} height={65} />
+                    <div className="my-1">
+                      <span>Welcome</span>
+                      <h6 className="my-1 fw-bold">Youssef AboZaid</h6>
                     </div>
-                    <NavDropdown.Divider />
-                    <Dropdown.Item href="#/action-1">My Account</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">My Order</Dropdown.Item>
-                    <NavDropdown.Divider />
-                    <Dropdown.Item href="#/action-3"><FontAwesomeIcon icon={faRightToBracket} /> Log out</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+                  </div>
+                  <NavDropdown.Divider />
+                    <Dropdown.Item><Link to={'/account'}>My Account</Link></Dropdown.Item>
+                    <Dropdown.Item><Link to={'/orders'}>My Order</Link></Dropdown.Item>
+                  <NavDropdown.Divider />
+                  <Dropdown.Item><FontAwesomeIcon icon={faRightToBracket} /> Log out</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Nav>
           </Offcanvas.Body>}
         </Navbar.Offcanvas>
