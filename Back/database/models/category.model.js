@@ -14,8 +14,9 @@ const categorySchema = new Schema({
         type :String,
         lowercase: true,
     },
-    imgCover: {
-        type: String,
+    image: {
+        type: Object,
+        required: true
     }
 },{
     timestamps: true

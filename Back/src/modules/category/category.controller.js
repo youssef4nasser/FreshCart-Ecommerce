@@ -5,7 +5,7 @@ import { catchError } from "../../utils/catchError.js";
 import cloudinary from "../../utils/cloudinary.js";
 
 export const addCategory = catchError(
-    async (req, res, next)=>{
+    async (req, res, next)=>{ 
         // check if Category already exist or no
         const isExist = await categoryModel.findOne({name: req.body.name})
         if(isExist) return next(new AppError("This Category already exist", 409))
