@@ -13,12 +13,9 @@ const subCategorySchema = new Schema({
         type :String,
         lowercase: true,
     },
-    imgCover:{
-        type: String,
-    },
     category:{
         type: Schema.ObjectId,
-        ref :"category",
+        ref :"Category",
         required: true,
     },
 },{

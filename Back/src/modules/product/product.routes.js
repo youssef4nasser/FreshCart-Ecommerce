@@ -11,8 +11,7 @@ const productRouter = express.Router()
 productRouter.route('/')
     .post(authenticate, allowedTo("admin"),
         fileUpload(fileValidation.image).fields([
-        { name: 'image', maxCount: 1 },
-        { name: 'images', maxCount: 8 },
+        { name: 'images', maxCount: 4 },
     ]),validate(addProductValidation), controller.addProduct)
     .get(controller.getAllProducts)
 
@@ -20,7 +19,6 @@ productRouter.route('/:id')
     .get(validate(idValidate), controller.getProduct)
     .put(authenticate, allowedTo("admin"), 
     fileUpload(fileValidation.image).fields([
-        { name: 'image', maxCount: 1 },
         { name: 'images', maxCount: 8 },
     ]), validate(updateProductValidation), controller.updateProduct)
     .delete(authenticate, allowedTo("admin"), validate(idValidate), controller.deleteProduct)

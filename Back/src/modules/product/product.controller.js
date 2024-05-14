@@ -21,23 +21,21 @@ export const addProduct = catchError(
         // Check the subCategory
         const subCategory = await subcategoryModel.findById(req.body.subCategory)
         if(!subCategory) return next(new AppError('The SubCategory does not exist', 404));
-
-        // upload main image
-        const {secure_url, public_id} = await cloudinary.uploader.upload(req.files.image[0].path,
-              {folder: `${process.env.FLODER_NAME}/Products`})
-        req.body.image = {secure_url, public_id}
-
-        if(req.files.images){
-            let images=[];
-            for (const file of req.files.images) {
-                const {secure_url, public_id} = await cloudinary.uploader.upload(file.path,
-                    {folder: `${process.env.FLODER_NAME}/Products/ProductsImages`});
-                    images.push({secure_url, public_id});  
-            }
-            req.body.images=images;
+        // Upload Images for product
+        let images = [];
+        for (const file of req.files.images) {
+            const {secure_url, public_id} = await cloudinary.uploader.upload(file.path,
+                {folder: `${process.env.FLODER_NAME}/Products/ProductsImages`});
+                images.push({secure_url, public_id});  
         }
-        req.body.colors = JSON.parse(req.body.colors)
-        req.body.sizes = JSON.parse(req.body.sizes)
+        req.body.images = images;
+
+        if(req.body.colors){
+            req.body.colors = JSON.parse(req.body.colors)
+        }
+        if(req.body.sizes){
+            req.body.sizes = JSON.parse(req.body.sizes)
+        }
         // create new Product and save on DB
         const product = new productModel(req.body)
         await product.save()
@@ -51,21 +49,17 @@ export const getAllProducts = catchError(
         .paginate().filter().select().search().sort()
         // execute query
         const products = await apiFeatures.mongooseQuery
-        // .populate([
-        //     {
-        //         path: 'brand',
-        //         select: '-images -image'
-        //     },
-        //     {
-        //         path: 'category',
-        //         select: '-images -image'
-        //     },
-        //     {
-        //         path: 'subCategory',
-        //         select: '-images -image'
-        //     },
-        // ]);
-        console.log(products);
+        .populate([
+            {
+                path: 'brand',
+            },
+            {
+                path: 'category',
+            },
+            {
+                path: 'subCategory',
+            },
+        ]);
         return res.status(200).json({message: "Success",
         page: apiFeatures.page,
         resulte: products.length,
@@ -76,7 +70,17 @@ export const getAllProducts = catchError(
 export const getProduct = catchError(
     async(req, res, next)=>{
         const {id} = req.params
-        const product = await productModel.findById(id)
+        const product = await productModel.findById(id).populate([
+            {
+                path: 'brand',
+            },
+            {
+                path: 'category',
+            },
+            {
+                path: 'subCategory',
+            },
+        ])
         !product && next(new AppError("Not found this Product", 409))
         product && res.status(200).json({message: "Success", product})
     }

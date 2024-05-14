@@ -2,14 +2,14 @@ import express from 'express'
 import * as controller from './brand.controller.js'
 import { fileUpload, fileValidation } from '../../utils/multer.cloud.js'
 import { validate } from '../../middleware/validate.js'
-import { addBrandValidaion, headers, idValidate, updateBrandValidation } from './brand.validation.js'
+import { addBrandValidaion, idValidate, updateBrandValidation } from './brand.validation.js'
 import { allowedTo } from '../../middleware/authorize.js'
 import { authenticate } from '../../middleware/authenticate.js'
 
 const brandRouter = express.Router()
 
 brandRouter.route('/')
-    .post(validate(headers, true), authenticate, allowedTo("admin"), fileUpload(fileValidation.image).single("image"), validate(addBrandValidaion), controller.addBrand)
+    .post(authenticate, allowedTo("admin"), fileUpload(fileValidation.image).single("image"), validate(addBrandValidaion), controller.addBrand)
     .get(controller.getAllBrands)
 
 brandRouter.route('/:id')

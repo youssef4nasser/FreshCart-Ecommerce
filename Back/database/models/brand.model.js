@@ -13,9 +13,8 @@ const brandSchema = new Schema({
         type :String,
         lowercase: true,
     },
-    imgCover:{
-        secure_url: String,
-        public_id: String
+    image:{
+        type: Object
     }
 },{
     timestamps: true

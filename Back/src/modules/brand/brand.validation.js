@@ -5,10 +5,6 @@ export const addBrandValidaion = Joi.object({
     file: Joi.required()
 });
 
-export const headers = Joi.object({
-    token: Joi.string().required()
-})
-
 export const updateBrandValidation = Joi.object({
     id: Joi.string().hex().length(24).required(),
     name: Joi.string().min(2),

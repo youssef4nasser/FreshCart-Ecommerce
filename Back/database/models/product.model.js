@@ -20,7 +20,7 @@ const productSchema = new Schema({
     },
     description: {
         type : String,
-        maxlength: [250, "description should be less than 250 characters"],
+        maxlength: [2000, "description should be less than 250 characters"],
         minlength:[3, "description should be more than 3 characters"],
         required: true,
         trim: true,
@@ -37,18 +37,18 @@ const productSchema = new Schema({
     },
     category: {
         type: Schema.ObjectId,
-        ref :"category",
-        required: true,
+        ref :"Category",
+        // required: true,
     },
     subCategory: {
         type: Schema.ObjectId,
-        ref :"subCategory",
-        required: true,
+        ref :"SubCategory",
+        // required: true,
     },
     brand: {
         type: Schema.ObjectId,
-        ref :"brand",
-        required: true,
+        ref :"Brand",
+        // required: true,
     },
     ratingAvg: {
         type: Number,
@@ -59,11 +59,8 @@ const productSchema = new Schema({
         type: Number,
         min: 0
     },
-    imgCover:{
-        type: String,
-    },
     images: {
-        type: [String],
+        type: [Object],
     },
     priceAfterDiscount: {
         type: Number,

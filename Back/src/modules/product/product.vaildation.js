@@ -16,7 +16,7 @@ export const addProductValidation = Joi.object({
         } else {
             return true;
         }
-    }).required(),
+    }).optional(),
     sizes: Joi.custom((value, helper)=>{
         value = JSON.parse(value)
         const arraySchema = Joi.object().keys({
@@ -28,7 +28,7 @@ export const addProductValidation = Joi.object({
         } else {
             return true;
         }
-    }).required(),
+    }).optional(),
     discount: Joi.number().min(1).max(100).positive(),
     brand: Joi.string().hex().length(24).required(),
     category: Joi.string().hex().length(24).required(),
