@@ -77,3 +77,12 @@ a{
     text-decoration: none;
     color: #111;
 }
+
+.product-item {
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+}

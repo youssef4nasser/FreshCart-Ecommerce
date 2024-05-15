@@ -11,7 +11,7 @@ export default function MdalShow(props) {
   const handleShow = () => setShow(true);
 
   return <>
-    <FontAwesomeIcon onClick={handleShow} icon={faEye} style={{color: "#ddd"}} size='lg' />
+    <FontAwesomeIcon className='text-secondary' onClick={handleShow} icon={faEye} />
     
     <Modal show={show} onHide={handleClose}
       {...props}

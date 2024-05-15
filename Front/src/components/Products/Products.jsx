@@ -1,48 +1,67 @@
-// import MdalShow from "../modal/ModalShow.jsx";
+import MdalShow from "../modal/ModalShow.jsx";
 import { faCartArrowDown, faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { Col, Image, Stack, Row } from "react-bootstrap";
-import { allProducts } from "../../../FakeData/allProducts.js";
+import { Col, Row, Card, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Products() {
-  return <>
-    <div>
-        <Row className="g-4">
-        {allProducts.map((ele,index)=>{
-            return(
-                <Col key={index} md={4} className="">
-                    <div className="border border-hover position-relative">
-                    <Link to={`/ProductDetails/${index}`}>
-                        <Stack direction="vertical" className="py-3 cursor-pointer product-item">
-                            <div>
-                            <Image src={ele.imagesrc} alt='product' className="w-100"/>
-                            <div className="position-absolute top-0 end-0 my-3 d-flex flex-column btn-add cursor-pointer">
-                                <FontAwesomeIcon icon={faCartArrowDown} style={{color: "#ddd"}} size='lg' />
-                                <FontAwesomeIcon className="p-3" icon={faHeart} style={{color: "#ddd"}} size='lg' />
-                                {/* <MdalShow data={ele} /> */}
-                            </div>
-                            </div>
-                            <div>
-                            <h5 className="fw-bold mb-1 mt-2">{ele.name}</h5>
-                            <h6 className="fw-bold mb-1">{ele.price}</h6>
-                            <span className="fw-bold">
-                                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-                            </span>
-                            </div>
-                        </Stack>
-                    </Link>
-                    </div>
+    const [products, setProducts] = useState([]);
+    
+    const getProducts = async () => {
+        const res = await axios.get('/api/api/v1/products');
+        if (res.data.message === "Success") {
+            setProducts(res.data.products);
+            console.log(products);
+        }
+    }
 
-                </Col>
-        )})}
-        </Row>
-    </div>
-  </>
+    useEffect(() => {
+        getProducts();
+    }, []);
+    
+    return (
+        <div className="container mt-4">
+            <Row className="g-4">
+                {products.map((item, index) => (
+                    <Col key={index} xs={12} sm={6} md={3} lg={4}>
+                        <Card className="h-100 shadow-sm product-item">
+                            <Link to={`ProductDetails/${item._id}`} className="text-decoration-none text-dark">
+                                <Card.Img variant="top" src={item.images[0].secure_url} alt='product' />
+                                <Card.Body className="d-flex flex-column">
+                                    <Card.Title className="h6 fw-bold">{item.name}</Card.Title>
+                                    <Card.Text className="fw-bold main-color">${item.price}</Card.Text>
+                                    <div className="d-flex justify-content-start my-2">
+                                        {[...Array(5)].map((star, i) => (
+                                            <FontAwesomeIcon
+                                                key={i}
+                                                icon={faStar}
+                                                className={`me-1 ${i < 4 ? "text-warning" : "text-secondary"}`}
+                                            />
+                                        ))}
+                                    </div>
+                                </Card.Body>
+                            </Link>
+                            <Card.Footer className="bg-white border-0">
+                                <div className="d-flex justify-content-around">
+                                    <Button variant="light">
+                                        <FontAwesomeIcon icon={faCartArrowDown} className="text-secondary" />
+                                    </Button>
+                                    <Button variant="light">
+                                        <FontAwesomeIcon icon={faHeart} className="text-secondary" />
+                                    </Button>
+                                    <Button variant="light">
+                                        <MdalShow data={item} />
+                                    </Button>
+                                </div>
+                            </Card.Footer>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </div>
+    );
 }
 
 export default Products
