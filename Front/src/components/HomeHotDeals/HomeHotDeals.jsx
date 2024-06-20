@@ -1,172 +1,48 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Col, Container, Image, Row, Stack } from "react-bootstrap"
-import Hot1 from "../../assets/Hot1.png"
-import Hot2 from "../../assets/Hot2.png"
-import Hot3 from "../../assets/Hot3.png"
-import Hot4 from "../../assets/Hot4.png"
-import Hot5 from "../../assets/Product5.webp"
+import { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllProducts } from "../../Redux/produtsSlice.js"
 
 export default function HomeHotDeals() {
-  return <>
-  <section className="py-5">
-    <Container>
-      <Row className="mt-5">
-        <Col lg={4}>
-          <h4>Hot Deals</h4>
-          <Stack direction="horizontal" className="product-item mt-3 p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot3} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-          <Stack direction="horizontal" className="product-item p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot4} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-          <Stack direction="horizontal" className="product-item p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot3} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-        </Col>
-        <Col lg={4}>
-          <h4>Top Rated</h4>
-          <Stack direction="horizontal" className="product-item mt-3 p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot2} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-          <Stack direction="horizontal" className="product-item p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot1} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-          <Stack direction="horizontal" className="product-item p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot5} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-        </Col>
-        <Col lg={4}>
-          <h4>Newest Products</h4>
-          <Stack direction="horizontal" className="product-item mt-3 p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot4} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-          <Stack direction="horizontal" className="product-item p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot3} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-          <Stack direction="horizontal" className="product-item p-1 border cursor-pointer border-hover mb-4">
-            <div>
-              <Image className="w-img" src={Hot2} alt='product'/>
-            </div>
-            <div>
-              <h6 className="fw-bold mb-1 mt-2">iPhone XR (Space Gray)</h6>
-              <h6 className="fw-bold mb-1">$999.99</h6>
-              <span className="fw-bold">
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-              </span>
-            </div>
-          </Stack>
-        </Col>
-      </Row>
-    </Container>
-  </section>
-  </>
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
+  let {products} = useSelector((store)=> store.allProduts)
+
+  return (
+    <section className="py-5">
+      <Container>
+        <Row className="mt-5">
+          {['Hot Deals', 'Top Rated', 'Newest Products'].map((category, idx) => (
+            <Col lg={4} key={idx}>
+              <h4>{category}</h4>
+              {products.slice(idx * 3, idx * 3 + 3).map((product) => (
+                  <Link key={product._id} to={`shop/ProductDetails/${product._id}`}>
+                    <Stack direction="horizontal" className="product-item mt-3 p-3 border cursor-pointer border-hover rounded-3 shadow-sm mb-4" key={product._id}>
+                      <Image className="w-img rounded" src={product.images[0].secure_url} alt="product" width={100} height={100} />
+                      <div className="ms-3">
+                        <h6 className="fw-bold mb-1">{product.name}</h6>
+                        <h6 className="fw-bold mb-1 text-success">${product.price}</h6>
+                        <div className="d-flex">
+                          {[...Array(5)].map((_, i) => (
+                            <FontAwesomeIcon key={i} icon={faStar} className={`me-1 ${i < 4 ? 'text-warning' : 'text-secondary'}`} />
+                          ))}
+                        </div>
+                      </div>
+                    </Stack>
+                  </Link>
+              ))}
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </section>
+  );
 }

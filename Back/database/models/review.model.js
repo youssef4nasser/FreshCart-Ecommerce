@@ -24,7 +24,7 @@ const reviewSchema = new Schema({
 })
 
 reviewSchema.pre(['findOne', 'find'], function(){
-    this.populate("user", "firstName lastName")
+    this.populate("user", "name profileImage")
 })
 
 export default model('Review', reviewSchema)

@@ -1,7 +1,12 @@
 import {Button, Form } from "react-bootstrap";
 import userProfile from "../../assets/1.png"
+import { useSelector } from "react-redux";
 
 function AccountSittings() {
+
+    const x = useSelector((store)=> store.user)
+    console.log(x);
+
   return (
     <div id="accountSettings" className="">
     <Form>

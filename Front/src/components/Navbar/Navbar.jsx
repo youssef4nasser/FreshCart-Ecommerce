@@ -5,16 +5,27 @@ import logo from "../../assets/freshcart-logo.svg"
 import { Badge, Button, Dropdown, Image, Nav, NavDropdown, Offcanvas, Stack } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faUser, faCartShopping, faEnvelope, faPhone, faRightToBracket, faListCheck } from '@fortawesome/free-solid-svg-icons';
-import userProfile from "../../assets/1.png"
+import profileImage from "../../assets/profileImage.jpg"
 import { useState } from 'react';
 import style from './Navbar.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../Redux/authSlice.js';
 
 function NavSearsh() {
+  const {user} = useSelector((store)=> store.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const handleOffcanvasToggle = () => {
     setShowOffcanvas(!showOffcanvas);
   };
+
+  const logOut = ()=>{
+    dispatch(logout())
+    localStorage.removeItem("userInfo", null)
+    navigate("/login")
+  }
 
   return (
   <>
@@ -69,16 +80,16 @@ function NavSearsh() {
             </Form>
             <Nav>
               <Stack direction='vertical' gap={3}>
-                <Nav.Item className="mt-4">
+              {user !== null ? <><Nav.Item className="mt-4">
                   <div className="d-flex align-items-center justify-content-between pb-2">
-                    <img src={userProfile} className='rounded-circle' width={58} height={58} />
-                    <h1 className="my-2 h5 fw-bold">Youssef AboZaid</h1>
+                    <img src={user?.user.profileImage?.secure_url || profileImage} className='rounded-circle' width={58} height={58} />
+                    <h1 className="my-2 h5 fw-bold">{user?.user.name}</h1>
                   </div>
                 </Nav.Item>
 
                 <Nav.Item className='main-hover p-2'>
-                  <Link to={'account'} className='d-flex justify-content-between'>
-                    <span>My Account</span>
+                  <Link to={'profile'} className='d-flex justify-content-between'>
+                    <span>My Profile</span>
                     <FontAwesomeIcon icon={faUser} size='lg'/>
                   </Link>
                 </Nav.Item>
@@ -110,19 +121,17 @@ function NavSearsh() {
                   </Link>
                 </Nav.Item>
 
-                <Nav.Item className='main-hover p-2'>
-                  <Link to={'login'} className='d-flex justify-content-between'>
-                    <span>Log out</span>
+                <Nav.Item onClick={logOut} className='main-hover p-2 cursor-pointer'>
+                  {/* <Link to={'login'} className='d-flex justify-content-between'> */}
+                    <span>LogOut </span>
                     <FontAwesomeIcon icon={faRightToBracket} size='lg'/>
-                  </Link>
-                </Nav.Item>
-
-                {/* <Nav.Item className='main-hover p-2'>
+                  {/* </Link> */}
+                </Nav.Item></> : <><Nav.Item className='main-hover p-2'>
                   <Link to={'/login'}>Login</Link>
                 </Nav.Item>
                 <Nav.Item className='main-hover p-2'>
                   <Link to={'/register'}>Register</Link>
-                </Nav.Item> */}
+                </Nav.Item></>}
               </Stack>
             </Nav>
           </Offcanvas.Body>
@@ -140,42 +149,41 @@ function NavSearsh() {
             <Nav className='align-items-center'>
               <Link to={"/wishlist"} className='position-relative  text-dark mx-3 cursor-pointer'>
                 <FontAwesomeIcon icon={faHeart} size='lg' />
-                <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">31</span>
+                <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">0</span>
+                {/* <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">{user !== null ? user?.user?.wishlist?.length : 0}</span> */}
               </Link> 
               
               <Link to={'/cart'} className='position-relative text-dark mx-3 cursor-pointer'>
                 <FontAwesomeIcon icon={faCartShopping} size='lg' />
-                <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">9</span>
+                <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">0</span>
+                {/* <span className="position-absolute end-75 translate-middle badge rounded-pill bg-success">{user !== null ? user?.user?.cart?.length : 0}</span> */}
               </Link>
               
               <Dropdown align={'end'} >
                 <Dropdown.Toggle variant="white" id="dropdown-basic">
                   <FontAwesomeIcon className="px-2" icon={faUser} size='lg' />
                 </Dropdown.Toggle>
-
-                {/* <Dropdown.Menu>
+                {user !== null ? <Dropdown.Menu style={{width:200}}>
+                  <div className="text-center">
+                    <img src={user?.user.profileImage?.secure_url || profileImage} className='rounded-circle' width={65} height={65} />
+                    <div className="my-1">
+                      <span>Welcome</span>
+                      <h6 className="my-1 fw-bold">{user?.user.name}</h6>
+                    </div>
+                  </div>
+                  <NavDropdown.Divider />
+                    <Dropdown.Item><Link to={'/profile'}>My Profile</Link></Dropdown.Item>
+                    <Dropdown.Item><Link to={'/orders'}>My Order</Link></Dropdown.Item>
+                  <NavDropdown.Divider />
+                  <Dropdown.Item onClick={logOut}><FontAwesomeIcon icon={faRightToBracket} /> LogOut</Dropdown.Item>
+                </Dropdown.Menu> : <Dropdown.Menu>
                   <Dropdown.Item>
                     <Link to={'/register'}>Register</Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
                     <Link to={'/login'}>Login</Link>
                   </Dropdown.Item>
-                </Dropdown.Menu> */}
-
-                <Dropdown.Menu style={{width:200}}>
-                  <div className="text-center">
-                    <img src={userProfile} className='rounded-circle' width={65} height={65} />
-                    <div className="my-1">
-                      <span>Welcome</span>
-                      <h6 className="my-1 fw-bold">Youssef AboZaid</h6>
-                    </div>
-                  </div>
-                  <NavDropdown.Divider />
-                    <Dropdown.Item><Link to={'/account'}>My Account</Link></Dropdown.Item>
-                    <Dropdown.Item><Link to={'/orders'}>My Order</Link></Dropdown.Item>
-                  <NavDropdown.Divider />
-                  <Dropdown.Item><FontAwesomeIcon icon={faRightToBracket} /> Log out</Dropdown.Item>
-                </Dropdown.Menu>
+                </Dropdown.Menu>}
               </Dropdown>
             </Nav>
           </Offcanvas.Body>}

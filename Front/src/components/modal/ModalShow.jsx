@@ -1,71 +1,68 @@
 import { faCartShopping, faEye, faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Carousel, Col, Container, Image, Row, Stack } from 'react-bootstrap';
+import { Button, Carousel, Col, Container, Image, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-export default function MdalShow(props) {
-
+export default function MdalShow({data}) {
   const [show, setShow] = useState(false);
+  const [productCount, setproductCount] = useState(1)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  return <>
-    <FontAwesomeIcon className='text-secondary' onClick={handleShow} icon={faEye} />
+  return (
+    <>
+      <FontAwesomeIcon className="text-secondary cursor-pointer" onClick={handleShow} icon={faEye} />
     
-    <Modal show={show} onHide={handleClose}
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-      </Modal.Header>
-      <Modal.Body>
-        <Container>
-          <Row>
-            <Col lg={4}>
-              <Stack direction="horizontal" className="py-3 justify-content-center">
-                  <Carousel fade indicators={false}>
-                    <Carousel.Item>
-                        <Image fluid width={265} src={props.data.imagesrc} alt='Carousel Banner' />
+      <Modal show={show} onHide={handleClose} size="lg" centered>
+        <Modal.Header closeButton />
+        <Modal.Body>
+          <Container>
+            <Row>
+              <Col lg={5} className="d-flex justify-content-center align-items-center">
+                <Carousel fade className="w-100">
+                  {data.images?.map((image, index) => (
+                    <Carousel.Item key={index}>
+                      <Image fluid src={image.secure_url} alt={`Product Image ${index}`} />
                     </Carousel.Item>
-                  </Carousel>
-              </Stack>
-            </Col>
-            <Col lg={8}>
-              <div className='ms-4'>
-                  <div>
-                    <h5 className="fw-bold my-3">{props.data.name}</h5>
-                    <h6 className="fw-bold  my-3">{props.data.price}</h6>
-                    <span className="fw-bold">
-                      <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                      <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                      <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                      <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                      <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-                    </span>
-                    <p className=' my-4'>
-                      Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                      dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                      consectetur ac, vestibulum at eros.
-                    </p>
+                  ))}
+                </Carousel>
+              </Col>
+              <Col lg={7}>
+                <div className="ms-lg-4">
+                  <h5 className="fw-bold my-3">{data.name}</h5>
+                  <h6 className="fw-bold text-success my-3">${data.price}</h6>
+                  <div className="mb-3">
+                    {[...Array(5)].map((star, i) => (
+                      <FontAwesomeIcon key={i} icon={faStar} className={i < 4 ? "text-warning" : "text-secondary"} />
+                    ))}
                   </div>
+                  <p className="text-muted my-4">
+                    {data.description}
+                  </p>
                   <hr />
-                  <div className='d-flex align-items-center justify-content-between'>
-                    <div className='border p-2 rounded-5'>
-                      <Button size='sm' className='rounded-5 fw-bold text-bg-secondary border-0'>+</Button>
-                      <span className='mx-2'>5</span>
-                      <Button size='sm' className='rounded-5 fw-bold text-bg-secondary border-0'>-</Button>
-                    </div>
-                    <Button className='px-sm-5 py-2 rounded-5 main-bg border-0 mx-md-5 fw-bold'>Add to cart <FontAwesomeIcon className="" icon={faCartShopping} size='sm' /></Button>
-                    <FontAwesomeIcon className="cursor-pointer" icon={faHeart} size='xl' style={{color: "#ddd"}} />
+                  <div className="d-flex align-items-center justify-content-between mt-4">
+                  <div className='border  p-2'>
+                  <Button onClick={()=>setproductCount(productCount+1)}  size='sm' className=' fw-bold bg-transparent text-black-50 border-0'>+</Button>
+                  <span className='mx-2 text-black-50'>{productCount}</span>
+                  <Button onClick={()=>setproductCount(productCount-1)}  size='sm' className=' fw-bold bg-transparent text-black-50 border-0'>-</Button>
+                </div>
+                    <Button className="px-4 py-2 rounded-5 main-bg fw-bold mx-4 border-0">
+                      Add to cart <FontAwesomeIcon icon={faCartShopping}  />
+                    </Button>
+                    <FontAwesomeIcon className="cursor-pointer" icon={faHeart} size="lg" style={{color: "#ddd"}} />
                   </div>
-              </div>
-            </Col>
-          </Row> 
-        </Container>
-      </Modal.Body>
-    </Modal>
-  </>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 }
+
+MdalShow.propTypes = {
+  data: PropTypes.object.isRequired,
+};

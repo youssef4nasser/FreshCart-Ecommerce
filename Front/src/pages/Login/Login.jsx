@@ -1,8 +1,39 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Col, Container, Row, Spinner} from "react-bootstrap";
 import { Form, Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate} from "react-router-dom";
+import { login, reset } from "../../Redux/authSlice.js";
+import { toast } from 'react-toastify';
 
 export default function Login() {
+  const [email, setemail] = useState(null)
+  const [password, setpassword] = useState(null)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogin = (e)=>{
+    e.preventDefault();
+    dispatch(login({email, password}))
+  }
+
+  const {loading, error, isSuccess, user} = useSelector((store)=> store.auth)
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('you have logged in Successfully') 
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      navigate('/')
+    }
+    
+    if (error){
+      toast.error(error)
+    }
+
+    dispatch(reset())
+    
+  }, [ error, isSuccess, user, navigate, dispatch])
+
   return <>
   <section className="py-5">
     <Container>
@@ -15,6 +46,8 @@ export default function Login() {
               <Form.Control
                 type="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e)=> setemail(e.target.value)}
               />
             </Form.Group>
 
@@ -23,11 +56,14 @@ export default function Login() {
               <Form.Control
                 type="password"
                 placeholder="Password"
+                value={password}
+                onChange={(e)=> setpassword(e.target.value)}
               />
             </Form.Group>
 
-            <Button className="my-3 main-bg border-0"  type="button" block>
-              Login
+            <Button onClick={handleLogin}
+              className="my-3 main-bg border-0"  type="button" block>
+              {loading ? <Spinner animation="border" variant="success" size="sm" disabled /> : "Login"}
             </Button>
           </Form>
           <div className="d-flex justify-content-between">

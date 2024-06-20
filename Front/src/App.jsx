@@ -16,6 +16,13 @@ import Orders from './components/Orders/Orders.jsx'
 import AccountWishlist from './components/AccountWishlist/AccountWishlist.jsx'
 import AccountAddress from './components/AccountAddress/AccountAddress.jsx'
 import OrderDetails from './components/OrderDetails/OrderDetails.jsx'
+import AllCategories from './pages/AllCategories/AllCategories.jsx'
+import { useDispatch } from 'react-redux'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react'
+import { handleRefresh } from './Redux/authSlice.js'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   {path: '/', element: <Layout />, children: [
@@ -23,11 +30,12 @@ const router = createBrowserRouter([
     {path: 'register', element: <Register />},
     {path: 'login', element: <Login />},
     {path: 'shop', element: <Shop />},
-    {path: 'productDetails/:id', element: <ProductDetails />},
-    {path: 'wishlist', element: <Wishlist />},
-    {path: 'cart', element: <Cart />},
-    {path: 'checkout', element: <Checkout />},
-    {path: 'profile', element: <Profile />, children:[
+    {path: 'AllCategories', element: <AllCategories />},
+    {path: 'shop/productDetails/:id', element: <ProductDetails />},
+    {path: 'wishlist', element: <ProtectedRoute><Wishlist /></ProtectedRoute>},
+    {path: 'cart', element: <ProtectedRoute><Cart /></ProtectedRoute>},
+    {path: 'checkout', element: <ProtectedRoute><Checkout /></ProtectedRoute>},
+    {path: 'profile', element: <ProtectedRoute><Profile /></ProtectedRoute>, children:[
       {path: '', element: <AccountSittings />},
       {path: 'orders', element: <Orders />},
       {path: 'orders/:OrderDetails', element: <OrderDetails />},
@@ -39,9 +47,29 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(localStorage.getItem("userInfo") !== null){
+      dispatch(handleRefresh(JSON.parse(localStorage.getItem("userInfo"))))
+    }
+  }, [])
+
   return (
     <>
-     <RouterProvider  router={router}/>
+    <RouterProvider router={router}/>
+    <ToastContainer
+      position="top-left"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
+
     </>
   )
 }

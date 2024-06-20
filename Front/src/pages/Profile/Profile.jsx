@@ -1,7 +1,16 @@
 import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
-import { Link, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { logout } from "../../Redux/authSlice.js";
 
 function Profile() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const logOut = ()=>{
+        dispatch(logout())
+        localStorage.removeItem("userInfo", null)
+        navigate("/login")
+    }
   return <>
     <section className="my-5">
         <Container>
@@ -10,7 +19,7 @@ function Profile() {
                 <Breadcrumb.Item active>Profile</Breadcrumb.Item>
             </Breadcrumb>
 
-            <Row>
+            <Row className="gy-4">
                 {/* Navigation */}
                 <Col xs={12} md={3}>
                     <div className="border rounded">
@@ -20,7 +29,7 @@ function Profile() {
                             <li><Link className="p-3 d-block cursor-pointer main-hover" to={'orders'}>Orders</Link></li>
                             <li><Link className="p-3 d-block cursor-pointer main-hover" to={'Wishlist'}>Wishlist</Link></li>
                             <li><Link className="p-3 d-block cursor-pointer main-hover" to={'Address'}>Address</Link></li>
-                            <li><Link className="p-3 d-block cursor-pointer main-hover" to={'Logout'}>Logout</Link></li>
+                            <li onClick={logOut}><Link className="p-3 d-block cursor-pointer main-hover">Logout</Link></li>
                         </ul>
                     </div>
                 </Col>

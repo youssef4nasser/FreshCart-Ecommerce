@@ -1,118 +1,57 @@
 import { faCartArrowDown, faHeart, faStar } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {Container, Row, Col, Stack, Image} from "react-bootstrap"
+import {Container, Row, Col, Button, Card} from "react-bootstrap"
 import { Link } from "react-router-dom"
 // import MdalShow from "../modal/ModalShow.jsx"
-import imagesrc from "../../assets/Product1.jpeg"
 
 function RelatedProduct() {
+
   return <>
   <section className="my-4">
     <Container>
-        <Row>
+        <Row className="g-4">
             <Col md={12} >
-            <h2 className="py-3 text-capitalize fw-bold">Related Products</h2>
+              <h2 className="py-2 text-capitalize fw-bold">Related Products</h2>
             </Col>
-            <Col xs={6} lg={3} className="border border-hover position-relative">
-              <Link to={`ProductDetails/1`} className="text-black text-decoration-none">
-                <Stack direction="vertical" className="py-3 cursor-pointer product-item">
-                <div>
-                  <Image src={imagesrc} alt='product' className="w-100"/>
-                  <div className="position-absolute top-0 end-0 my-3 d-flex flex-column btn-add cursor-pointer">
-                    <FontAwesomeIcon icon={faCartArrowDown} style={{color: "#ddd"}} size='lg' />
-                    <FontAwesomeIcon className="p-3" icon={faHeart} style={{color: "#ddd"}} size='lg' />
-                    {/* <MdalShow data={item} /> */}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="fw-bold mb-1 mt-2">Product Name</h5>
-                  <h6 className="fw-bold mb-1">item price</h6>
-                  <span className="fw-bold">
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-                  </span>
-                </div>
-                </Stack>
-              </Link>
-            </Col>
-            <Col xs={6} lg={3} className="border border-hover position-relative">
-              <Link to={`ProductDetails/1`} className="text-black text-decoration-none">
-                <Stack direction="vertical" className="py-3 cursor-pointer product-item">
-                <div>
-                  <Image src={imagesrc} alt='product' className="w-100"/>
-                  <div className="position-absolute top-0 end-0 my-3 d-flex flex-column btn-add cursor-pointer">
-                    <FontAwesomeIcon icon={faCartArrowDown} style={{color: "#ddd"}} size='lg' />
-                    <FontAwesomeIcon className="p-3" icon={faHeart} style={{color: "#ddd"}} size='lg' />
-                    {/* <MdalShow data={item} /> */}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="fw-bold mb-1 mt-2">Product Name</h5>
-                  <h6 className="fw-bold mb-1">item price</h6>
-                  <span className="fw-bold">
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-                  </span>
-                </div>
-                </Stack>
-              </Link>
-            </Col>
-            <Col xs={6} lg={3} className="border border-hover position-relative">
-              <Link to={`ProductDetails/1`} className="text-black text-decoration-none">
-                <Stack direction="vertical" className="py-3 cursor-pointer product-item">
-                <div>
-                  <Image src={imagesrc} alt='product' className="w-100"/>
-                  <div className="position-absolute top-0 end-0 my-3 d-flex flex-column btn-add cursor-pointer">
-                    <FontAwesomeIcon icon={faCartArrowDown} style={{color: "#ddd"}} size='lg' />
-                    <FontAwesomeIcon className="p-3" icon={faHeart} style={{color: "#ddd"}} size='lg' />
-                    {/* <MdalShow data={item} /> */}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="fw-bold mb-1 mt-2">Product Name</h5>
-                  <h6 className="fw-bold mb-1">item price</h6>
-                  <span className="fw-bold">
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-                  </span>
-                </div>
-                </Stack>
-              </Link>
-            </Col>
-            <Col xs={6} lg={3} className="border border-hover position-relative">
-              <Link to={`ProductDetails/1`} className="text-black text-decoration-none">
-                <Stack direction="vertical" className="py-3 cursor-pointer product-item">
-                <div>
-                  <Image src={imagesrc} alt='product' className="w-100"/>
-                  <div className="position-absolute top-0 end-0 my-3 d-flex flex-column btn-add cursor-pointer">
-                    <FontAwesomeIcon icon={faCartArrowDown} style={{color: "#ddd"}} size='lg' />
-                    <FontAwesomeIcon className="p-3" icon={faHeart} style={{color: "#ddd"}} size='lg' />
-                    {/* <MdalShow data={item} /> */}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="fw-bold mb-1 mt-2">Product Name</h5>
-                  <h6 className="fw-bold mb-1">item price</h6>
-                  <span className="fw-bold">
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#FF8A00"}} />
-                    <FontAwesomeIcon icon={faStar} style={{color: "#DDD"}} />
-                  </span>
-                </div>
-                </Stack>
-              </Link>
-            </Col>
+            {/* {product.slice(0, 4).map((item, index)=>{ */}
+              return(
+                <Col xs={12} sm={6} lg={3}>
+                    <Card className="h-100 shadow-sm product-item border-hover">
+                        <Link 
+                        // to={`/shop/ProductDetails/${item._id}`}
+                         className="text-decoration-none text-dark">
+                            <Card.Img variant="top" src={"item?.images[0].secure_url"} alt='product' />
+                            <Card.Body className="d-flex flex-column">
+                                <Card.Title className="h6 fw-bold">{"item.name"}</Card.Title>
+                                <Card.Text className="fw-bold main-color">${"item.price"}</Card.Text>
+                                <div className="d-flex justify-content-start my-2">
+                                    {[...Array(5)].map((star, i) => (
+                                        <FontAwesomeIcon
+                                            key={i}
+                                            icon={faStar}
+                                            className={`me-1 ${i < 4 ? "text-warning" : "text-secondary"}`}
+                                        />
+                                    ))}
+                                </div>
+                            </Card.Body>
+                        </Link>
+                        <Card.Footer className="bg-white border-0">
+                            <div className="d-flex justify-content-around">
+                                <Button variant="light">
+                                    <FontAwesomeIcon icon={faCartArrowDown} className="text-secondary" />
+                                </Button>
+                                <Button variant="light">
+                                    <FontAwesomeIcon icon={faHeart} className="text-secondary" />
+                                </Button>
+                                <Button variant="light">
+                                    {/* <MdalShow data={item} /> */}
+                                </Button>
+                            </div>
+                        </Card.Footer>
+                    </Card>
+                </Col>
+              )
+            {/* })} */}
         </Row>
     </Container>
   </section>

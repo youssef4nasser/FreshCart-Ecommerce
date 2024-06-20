@@ -18,7 +18,7 @@ function Cart() {
         </Breadcrumb>
         <h2 className="mb-5 fw-bold text-center">Cart</h2>
         <Row className="mt-4">
-            <Col xs={8}>
+            <Col lg={8}>
                 <Table   hover >
                     <thead>
                         <tr  className="bg-info text-center">
@@ -89,7 +89,7 @@ function Cart() {
                 </Table>
             </Col>
             {/* Cart Summary */}
-            <Col xs={12} sm={4}>
+            <Col lg={4}>
                 <Card bg="light" className="mb-4 shadow-sm">
                     <Card.Body>
                         <Card.Title>Cart summary</Card.Title>
