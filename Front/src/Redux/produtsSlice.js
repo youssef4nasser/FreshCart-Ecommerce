@@ -28,4 +28,4 @@ const getAllProductsSlice = createSlice({
     }
 })
 
-export default getAllProductsSlice.reducer;
+export const getAllProductsReducer =  getAllProductsSlice.reducer
