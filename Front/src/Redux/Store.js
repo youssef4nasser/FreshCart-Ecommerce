@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import { categoryReducer } from './categorySlice.js';
+import categoryReducer from './categorySlice.js';
 import authReducer from "./authSlice.js"
 import produtDetailsReducer from './produtDetailsSlice.js';
 import produtsReducer from './produtsSlice.js';
@@ -12,6 +12,5 @@ export const store = configureStore({
         allProduts: produtsReducer,
         cart: cartReducer,
         produtDetails: produtDetailsReducer
-    },
-    devTools: true
+    }
 })
