@@ -4,23 +4,40 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { Col, Row, Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../../Redux/produtsSlice.js";
+import { addToCart, resetIsSuccess } from "../../Redux/cartSlice.js";
+import { toast } from "react-toastify";
 
 function Products() {
-    const [products, setProducts] = useState([]);
-    
-    const getProducts = async () => {
-        const res = await axios.get('/api/api/v1/products');
-        if (res.data.message === "Success") {
-            setProducts(res.data.products);
-            console.log(products);
-        }
-    }
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        getProducts();
+        dispatch(getAllProducts());
     }, []);
     
+    let {products} = useSelector((store)=> store.allProduts)
+    let { isSuccess, error } = useSelector((store) => store.cart)
+    const [isAddToCartCalled, setIsAddToCartCalled] = useState(false);
+  
+    const handleAddToCart = (id) => {
+      dispatch(addToCart(id));
+      setIsAddToCartCalled(true);
+    };
+  
+    useEffect(() => {
+      if (isSuccess && isAddToCartCalled) {
+        toast.success('Product added to cart');
+        setIsAddToCartCalled(false);
+      } else if (isAddToCartCalled && error) {
+        toast.error(error);
+        setIsAddToCartCalled(false);
+      }
+      
+      dispatch(resetIsSuccess());
+      
+    }, [isSuccess, error, isAddToCartCalled, dispatch]);
+
     return (
         <div className="container mt-4">
             <Row className="g-4">
@@ -45,7 +62,7 @@ function Products() {
                             </Link>
                             <Card.Footer className="bg-white border-0">
                                 <div className="d-flex justify-content-around">
-                                    <Button variant="light">
+                                    <Button onClick={function () { handleAddToCart(item._id) }} variant="light">
                                         <FontAwesomeIcon icon={faCartArrowDown} className="text-secondary" />
                                     </Button>
                                     <Button variant="light">

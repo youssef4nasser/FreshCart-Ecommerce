@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Row, Col, Stack, Button, Image } from "react-bootstrap"
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import ProductTabs from "../../components/ProductTabs/ProductTabs.jsx";
-import RelatedProduct from "../../components/RelatedProduct/RelatedProduct.jsx";
+// import RelatedProduct from "../../components/RelatedProduct/RelatedProduct.jsx";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../Redux/produtDetailsSlice.js";
+import { addToCart, resetIsSuccess } from "../../Redux/cartSlice.js";
+import { toast } from "react-toastify";
 
 function ProductDetails() {
   const params = useParams();
@@ -20,6 +22,27 @@ function ProductDetails() {
   useEffect(() => {
     dispatch(getProductDetails(params.id));
   }, []);
+
+  let { isSuccess, error } = useSelector((store) => store.cart)
+  const [isAddToCartCalled, setIsAddToCartCalled] = useState(false);
+
+  const handleAddToCart = (id) => {
+    dispatch(addToCart(id));
+    setIsAddToCartCalled(true);
+  };
+
+  useEffect(() => {
+    if (isSuccess && isAddToCartCalled) {
+      toast.success('Product added to cart');
+      setIsAddToCartCalled(false);
+    } else if (isAddToCartCalled && error) {
+      toast.error(error);
+      setIsAddToCartCalled(false);
+    }
+    
+    dispatch(resetIsSuccess());
+    
+  }, [isSuccess, error, isAddToCartCalled, dispatch]);
 
   return <>
   {loading ? <loading /> : <section className="my-5">
@@ -57,9 +80,11 @@ function ProductDetails() {
                 <div className='border  p-2'>
                   <Button onClick={()=>setproductCount(productCount+1)} size='sm' className=' fw-bold bg-transparent text-black-50 border-0'>+</Button>
                   <span className='mx-2 text-black-50'>{productCount}</span>
-                  <Button onClick={()=>setproductCount(productCount-1)} size='sm' className=' fw-bold bg-transparent text-black-50 border-0'>-</Button>
+                  <Button onClick={() => productCount > 1 && setproductCount(productCount - 1)} size='sm' className=' fw-bold bg-transparent text-black-50 border-0'>-</Button>
                 </div>
-                <Button className='px-sm-5 py-2 rounded-5 main-bg border-0 mx-md-5 fw-bold'>Add to cart <FontAwesomeIcon className="" icon={faCartShopping} size='sm' /></Button>
+                <Button onClick={function () { handleAddToCart(product._id) }} className='px-sm-5 py-2 rounded-5 main-bg border-0 mx-md-5 fw-bold'>
+                  Add to cart <FontAwesomeIcon className="" icon={faCartShopping} size='sm' />
+                  </Button>
                 <FontAwesomeIcon className="cursor-pointer" icon={faHeart} size='xl' style={{color: "#ddd"}} />
               </div>
               <span>Category: {product?.category.name}</span>
@@ -75,7 +100,7 @@ function ProductDetails() {
       {/* Product Details */}
       <ProductTabs />
       {/* Related Products */}
-      <RelatedProduct /> 
+      {/* <RelatedProduct />  */}
     </Container>
   </section>}
   </>

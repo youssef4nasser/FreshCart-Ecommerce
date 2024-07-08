@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MdalShow from "../modal/ModalShow.jsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../Redux/produtsSlice.js";
+import { addToCart, resetIsSuccess } from "../../Redux/cartSlice.js";
+import { toast } from "react-toastify";
 
 export default function PopularProducts() {
 
@@ -16,6 +18,26 @@ export default function PopularProducts() {
   }, []);
 
   let {products} = useSelector((store)=> store.allProduts)
+  let { isSuccess, error } = useSelector((store) => store.cart)
+  const [isAddToCartCalled, setIsAddToCartCalled] = useState(false);
+
+  const handleAddToCart = (id) => {
+    dispatch(addToCart(id));
+    setIsAddToCartCalled(true);
+  };
+
+  useEffect(() => {
+    if (isSuccess && isAddToCartCalled) {
+      toast.success('Product added to cart');
+      setIsAddToCartCalled(false);
+    } else if (isAddToCartCalled && error) {
+      toast.error(error);
+      setIsAddToCartCalled(false);
+    }
+    
+    dispatch(resetIsSuccess());
+    
+  }, [isSuccess, error, isAddToCartCalled, dispatch]);
 
   return <>
   <section className="py-5">
@@ -49,7 +71,7 @@ export default function PopularProducts() {
                     </Link>
                     <Card.Footer className="bg-white border-0">
                         <div className="d-flex justify-content-around">
-                            <Button variant="light">
+                            <Button onClick={function () { handleAddToCart(item._id) }} variant="light">
                                 <FontAwesomeIcon icon={faCartArrowDown} className="text-secondary" />
                             </Button>
                             <Button variant="light">

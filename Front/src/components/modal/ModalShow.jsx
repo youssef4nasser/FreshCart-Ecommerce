@@ -2,14 +2,39 @@ import { faCartShopping, faEye, faHeart, faStar } from '@fortawesome/free-solid-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Carousel, Col, Container, Image, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, resetIsSuccess } from '../../Redux/cartSlice.js';
+import { toast } from 'react-toastify';
 
 export default function MdalShow({data}) {
   const [show, setShow] = useState(false);
   const [productCount, setproductCount] = useState(1)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const dispatch = useDispatch()
+
+  let { isSuccess, error } = useSelector((store) => store.cart)
+  const [isAddToCartCalled, setIsAddToCartCalled] = useState(false);
+
+  const handleAddToCart = (id) => {
+    dispatch(addToCart(id));
+    setIsAddToCartCalled(true);
+  };
+
+  useEffect(() => {
+    if (isSuccess && isAddToCartCalled) {
+      toast.success('Product added to cart');
+      setIsAddToCartCalled(false);
+    } else if (isAddToCartCalled && error) {
+      toast.error(error);
+      setIsAddToCartCalled(false);
+    }
+    
+    dispatch(resetIsSuccess());
+    
+  }, [isSuccess, error, isAddToCartCalled, dispatch]);
 
   return (
     <>
@@ -48,7 +73,7 @@ export default function MdalShow({data}) {
                   <span className='mx-2 text-black-50'>{productCount}</span>
                   <Button onClick={()=>setproductCount(productCount-1)}  size='sm' className=' fw-bold bg-transparent text-black-50 border-0'>-</Button>
                 </div>
-                    <Button className="px-4 py-2 rounded-5 main-bg fw-bold mx-4 border-0">
+                    <Button onClick={function () { handleAddToCart(data.id) }} className="px-4 py-2 rounded-5 main-bg fw-bold mx-4 border-0">
                       Add to cart <FontAwesomeIcon icon={faCartShopping}  />
                     </Button>
                     <FontAwesomeIcon className="cursor-pointer" icon={faHeart} size="lg" style={{color: "#ddd"}} />
