@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import { authReducer } from './authSlice.js';
-import { categoryReducer } from './categorySlice.js';
+import { categoryReducer } from './CategorySlice.js';
 import { productDetailsReducer } from './produtDetailsSlice.js';
 import { cartReducer } from './cartSlice.js';
 import { getAllProductsReducer } from './produtsSlice.js';
