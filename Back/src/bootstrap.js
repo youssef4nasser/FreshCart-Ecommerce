@@ -16,7 +16,7 @@ import orderRouter from "./modules/order/order.routes.js";
 import adminRouter from "./modules/admin/admin.routes.js";
 import userRouter from "./modules/user/user.routes.js";
 
-export const bootstrap = (app)=>{  
+export const bootstrap = (app) => {
     //log every request to the console in dev mode
     app.use(morgan("dev"));
     // routes App
@@ -33,13 +33,16 @@ export const bootstrap = (app)=>{
     app.use('/api/v1/coupons', couponRouter)
     app.use('/api/v1/carts', cartRouter)
     app.use('/api/v1/orders', orderRouter)
-    app.all('*', (req, res, next)=>{
+    app.use("/", (req, res) => {
+        res.send("Welcome to the API");
+    });
+    app.all('*', (req, res, next) => {
         next(new AppError('Not found endpoint', 404))
     })
 
     // connection to database
     dbConnection()
-    
+
     // Global error handler middleware
     app.use(globalError)
 }

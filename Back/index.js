@@ -10,7 +10,10 @@ const app = express()
 
 const port = process.env.PORT || 5000
 
-app.use(cors())
+app.use(cors({
+    origin: 'https://fresh-cart-ecommerce-front.vercel.app/',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],    
+}))
 // webhook stripe payment
 app.post('/webhook', express.raw({type: 'application/json'}), createOnlineOrder);
 
