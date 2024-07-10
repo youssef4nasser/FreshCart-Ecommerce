@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styles from "./PopularCategory.module.css"
  import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../Redux/categorySlice.js";
+import { getCategories } from "../../Redux/CategorySlice.js";
 
 export default function PopularCategory() {
 
