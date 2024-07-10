@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getCategories = createAsyncThunk('categorySlice/getCategories', async ()=>{
-    const res = await axios.get('/api/api/v1/categories');
+    const res = await axios.get('/api/v1/categories');
     return res.data.category;
 })
 

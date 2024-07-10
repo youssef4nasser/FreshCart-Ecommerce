@@ -4,7 +4,7 @@ import axios from "axios";
 // Thunk for login
 export const login = createAsyncThunk('auth/login', async (body, { rejectWithValue }) => {
   try {
-    const res = await axios.post('/api/api/v1/auth/signIn', body);
+    const res = await axios.post('/api/v1/auth/signIn', body);
     return res.data;
   } catch (error) {
     // Return a rejectWithValue to handle error in extraReducers
@@ -16,7 +16,7 @@ export const login = createAsyncThunk('auth/login', async (body, { rejectWithVal
 // Thunk for registerUser
 export const registerUser = createAsyncThunk('auth/register', async (body, { rejectWithValue }) => {
   try {
-    const res = await axios.post('/api/api/v1/auth/signUp', body);
+    const res = await axios.post('/api/v1/auth/signUp', body);
     return res.data;
   } catch (error) {
     // Return a rejectWithValue to handle error in extraReducers

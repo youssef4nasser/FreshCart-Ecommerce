@@ -6,7 +6,7 @@ const token = userInfo ? JSON.parse(userInfo).token : '';
 
 export const addToCart = createAsyncThunk('cartSlice/addToCart', async (id, { rejectWithValue }) => {
     try {
-        const response = await axios.post('/api/api/v1/carts', { product: id }, { headers: { token } });
+        const response = await axios.post('/api/v1/carts', { product: id }, { headers: { token } });
         console.log(response);
         if (response.data.errors) {
             return rejectWithValue(response.data.errors[0].message);
