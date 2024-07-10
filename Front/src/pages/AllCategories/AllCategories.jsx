@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Col, Container, Image, Row, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getCategories } from "../../Redux/CategorySlice.js";
+import { getCategories } from "../../Redux/categorySlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 function AllCategories() {
