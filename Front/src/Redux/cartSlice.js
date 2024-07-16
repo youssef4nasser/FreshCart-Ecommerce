@@ -3,11 +3,12 @@ import axios from 'axios';
 
 const userInfo = localStorage.getItem('userInfo');
 const token = userInfo ? JSON.parse(userInfo).token : '';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export const addToCart = createAsyncThunk('cartSlice/addToCart', async (id, { rejectWithValue }) => {
     try {
-        const response = await axios.post('/api/v1/carts', { product: id }, { headers: { token } });
-        console.log(response);
+        const response = await axios.post(`${API_BASE_URL}/api/v1/carts`, { product: id }, { headers: { token } });
         if (response.data.errors) {
             return rejectWithValue(response.data.errors[0].message);
         }

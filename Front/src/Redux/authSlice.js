@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 // Thunk for login
 export const login = createAsyncThunk('auth/login', async (body, { rejectWithValue }) => {
   try {
-    const res = await axios.post('/api/v1/auth/signIn', body);
+    const res = await axios.post(`${API_BASE_URL}/api/v1/signIn`, body);
     return res.data;
   } catch (error) {
     // Return a rejectWithValue to handle error in extraReducers
@@ -16,7 +18,7 @@ export const login = createAsyncThunk('auth/login', async (body, { rejectWithVal
 // Thunk for registerUser
 export const registerUser = createAsyncThunk('auth/register', async (body, { rejectWithValue }) => {
   try {
-    const res = await axios.post('/api/v1/auth/signUp', body);
+    const res = await axios.post(`${API_BASE_URL}/api/v1/signUp`, body);
     return res.data;
   } catch (error) {
     // Return a rejectWithValue to handle error in extraReducers
